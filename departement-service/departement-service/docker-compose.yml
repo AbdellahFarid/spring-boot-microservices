@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  d_db:
+    container_name: "department_db"
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: "department-db"
+      MYSQL_USERNAME: "user"
+      MYSQL_PASSWORD: "password"
+      MYSQL_ROOT_PASSWORD: "root"
+    ports:
+      - '3306:3306'
+    networks:
+      - my_network
+networks:
+  my_network:

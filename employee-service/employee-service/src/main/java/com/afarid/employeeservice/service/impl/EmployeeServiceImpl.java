@@ -2,6 +2,7 @@ package com.afarid.employeeservice.service.impl;
 
 import com.afarid.employeeservice.dto.EmployeeDto;
 import com.afarid.employeeservice.entity.Employee;
+import com.afarid.employeeservice.exception.ResourceNotFoundException;
 import com.afarid.employeeservice.mapper.EmployeeMapper;
 import com.afarid.employeeservice.mapper.EmployeeModelMapper;
 import com.afarid.employeeservice.repository.EmployeeRepository;
@@ -64,7 +65,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeRepository.findById(id).get();
         return EmployeeMapper.EMPLOYEE_MAPPER.toEmployeeDto(employee);*/
 
-        Employee employee = employeeRepository.findById(id).get();
+        Employee employee = employeeRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(String.format("Employee with id: %s not found!", id))
+        );
 
         return employeeModelMapper.mapToEmployeeDto(employee);
     }

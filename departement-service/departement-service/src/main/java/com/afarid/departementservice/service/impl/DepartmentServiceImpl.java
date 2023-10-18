@@ -2,6 +2,7 @@ package com.afarid.departementservice.service.impl;
 
 import com.afarid.departementservice.dto.DepartmentDto;
 import com.afarid.departementservice.entity.Department;
+import com.afarid.departementservice.exception.ResourceNotFoundException;
 import com.afarid.departementservice.mapper.DepartmentMapper;
 import com.afarid.departementservice.mapper.DepartmentModelMapper;
 import com.afarid.departementservice.repository.DepartmentRepository;
@@ -17,7 +18,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     private final DepartmentModelMapper departmentModelMapper;
     @Override
     public DepartmentDto getDepartmentByCode(String code) {
-        Department department = departmentRepository.findByDepartmentCode(code);
+        Department department = departmentRepository.findByDepartmentCode(code).orElseThrow(
+                () -> new ResourceNotFoundException(String.format("Department with code : %s not found!", code))
+        );
 
 
         //mapping using constructor

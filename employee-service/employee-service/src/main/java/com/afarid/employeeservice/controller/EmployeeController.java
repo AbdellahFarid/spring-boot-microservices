@@ -1,5 +1,6 @@
 package com.afarid.employeeservice.controller;
 
+import com.afarid.employeeservice.dto.EmployeeDepartmentDto;
 import com.afarid.employeeservice.dto.EmployeeDto;
 import com.afarid.employeeservice.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable("id") Long employeeId){
+    public ResponseEntity<EmployeeDepartmentDto> getEmployeeById(@PathVariable("id") Long employeeId){
         return new ResponseEntity<>(employeeService.getEmployeeById(employeeId), HttpStatus.OK);
     }
 }

@@ -1,17 +1,17 @@
-package com.afarid.employeeservice.dto;
+package com.afarid.departementservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class EmployeeDto {
 
     private Long id;
     private String firstName;
     private String lastName;
     private String email;
-    private DepartmentDto department;
+    private String departmentCode;
 }

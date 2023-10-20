@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -55,38 +56,38 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeDepartmentDto getEmployeeById(Long id) {
-
-/*        //Using the constructor
-        Employee employee = employeeRepository.findById(id).get();
-
-        return new EmployeeDto(
-                employee.getId(),
-                employee.getFirstName(),
-                employee.getLastName(),
-                employee.getEmail()
-        );*/
-
-/*        //Using MapStruct
-        Employee employee = employeeRepository.findById(id).get();
-        return EmployeeMapper.EMPLOYEE_MAPPER.toEmployeeDto(employee);*/
+    public EmployeeDto getEmployeeById(Long id) {
 
         Employee employee = employeeRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(String.format("Employee with id: %s not found!", id))
         );
         DepartmentDto departmentDto = employeeClient.getDepartmentByCode(employee.getDepartmentCode());
 
-        EmployeeDepartmentDto employeeDepartmentDto = new EmployeeDepartmentDto();
-        employeeDepartmentDto.setEmployeeDto(employeeModelMapper.mapToEmployeeDto(employee));
-        employeeDepartmentDto.setDepartmentDto(departmentDto);
-
-        return employeeDepartmentDto;
+        return new EmployeeDto(
+                employee.getId(),
+                employee.getFirstName(),
+                employee.getLastName(),
+                employee.getEmail(),
+                departmentDto
+        );
     }
 
     @Override
     public List<EmployeeDto> getAllEmployees() {
-
-        List<Employee> employeeList = employeeRepository.findAll();
-        return employeeList.stream().map(employeeModelMapper::mapToEmployeeDto).collect(Collectors.toList());
+        List<Employee> employees = employeeRepository.findAll();
+        List<EmployeeDto> employeesDto = employees
+                .stream()
+                .map(employee -> {
+                    DepartmentDto departmentDto = employeeClient.getDepartmentByCode(employee.getDepartmentCode());
+                    EmployeeDto employeeDto = new EmployeeDto(
+                            employee.getId(),
+                            employee.getFirstName(),
+                            employee.getLastName(),
+                            employee.getEmail(),
+                            departmentDto
+                    );
+                    return employeeDto;
+                }).collect(Collectors.toList());
+        return employeesDto;
     }
 }

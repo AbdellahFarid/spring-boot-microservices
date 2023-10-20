@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,28 +25,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final FeignEmployeeClient employeeClient;
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
-
-        //Using constructor
-/*        Employee employee = new Employee(
-                employeeDto.getId(),
-                employeeDto.getFirstName(),
-                employeeDto.getLastName(),
-                employeeDto.getEmail()
-        );
-        //Save the employee in the database
-        Employee savedEmployee = employeeRepository.save(employee);
-        return new EmployeeDto(
-                savedEmployee.getId(),
-                savedEmployee.getFirstName(),
-                savedEmployee.getLastName(),
-                savedEmployee.getEmail()
-        );*/
-        /*//Using MapStruct
-        Employee employee = EmployeeMapper.EMPLOYEE_MAPPER.toEmployee(employeeDto);
-        //Save the employee in the database
-        Employee savedEmployee = employeeRepository.save(employee);
-
-        return EmployeeMapper.EMPLOYEE_MAPPER.toEmployeeDto(savedEmployee);*/
 
         //Using ModelMapper
         Employee employee = employeeModelMapper.mapToEmployee(employeeDto);
@@ -88,6 +67,25 @@ public class EmployeeServiceImpl implements EmployeeService {
                     );
                     return employeeDto;
                 }).collect(Collectors.toList());
+        return employeesDto;
+    }
+
+    @Override
+    public List<EmployeeDto> getEmployeesByDepartmentCode(String departmentCode) {
+        List<Employee> employees = employeeRepository.findEmployeeByDepartmentCode(departmentCode).get();
+        List<EmployeeDto> employeesDto = employees
+                .stream()
+                .map(employee -> {
+                    DepartmentDto departmentDto = employeeClient.getDepartmentByCode(employee.getDepartmentCode());
+                    EmployeeDto employeeDto = new EmployeeDto(
+                            employee.getId(),
+                            employee.getFirstName(),
+                            employee.getLastName(),
+                            employee.getEmail(),
+                            departmentDto
+                    );
+                    return employeeDto;
+                }).toList();
         return employeesDto;
     }
 }

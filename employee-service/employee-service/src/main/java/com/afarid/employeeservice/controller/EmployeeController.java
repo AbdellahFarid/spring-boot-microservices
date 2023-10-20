@@ -32,4 +32,9 @@ public class EmployeeController {
     public ResponseEntity<List<EmployeeDto>> getAllEmployees(){
         return new ResponseEntity<>(employeeService.getAllEmployees(), HttpStatus.OK);
     }
+
+    @GetMapping("/department/{department-code}")
+    public ResponseEntity<List<EmployeeDto>> getAllEmployeesByDepartmentCode(@PathVariable("department-code") String departmentCode){
+        return new ResponseEntity<>(employeeService.getEmployeesByDepartmentCode(departmentCode), HttpStatus.OK);
+    }
 }

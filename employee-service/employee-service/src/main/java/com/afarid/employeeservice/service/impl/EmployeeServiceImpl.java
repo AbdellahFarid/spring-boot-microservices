@@ -6,12 +6,14 @@ import com.afarid.employeeservice.dto.EmployeeDto;
 import com.afarid.employeeservice.entity.Employee;
 import com.afarid.employeeservice.exception.ResourceNotFoundException;
 import com.afarid.employeeservice.feign.FeignEmployeeClient;
-import com.afarid.employeeservice.mapper.EmployeeMapper;
 import com.afarid.employeeservice.mapper.EmployeeModelMapper;
 import com.afarid.employeeservice.repository.EmployeeRepository;
 import com.afarid.employeeservice.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -79,5 +81,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeDepartmentDto.setDepartmentDto(departmentDto);
 
         return employeeDepartmentDto;
+    }
+
+    @Override
+    public List<EmployeeDto> getAllEmployees() {
+
+        List<Employee> employeeList = employeeRepository.findAll();
+        return employeeList.stream().map(employeeModelMapper::mapToEmployeeDto).collect(Collectors.toList());
     }
 }

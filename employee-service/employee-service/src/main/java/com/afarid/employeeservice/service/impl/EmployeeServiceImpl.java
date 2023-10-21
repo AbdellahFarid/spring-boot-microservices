@@ -1,7 +1,6 @@
 package com.afarid.employeeservice.service.impl;
 
 import com.afarid.employeeservice.dto.DepartmentDto;
-import com.afarid.employeeservice.dto.EmployeeDepartmentDto;
 import com.afarid.employeeservice.dto.EmployeeDto;
 import com.afarid.employeeservice.entity.Employee;
 import com.afarid.employeeservice.exception.ResourceNotFoundException;

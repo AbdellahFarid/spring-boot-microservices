@@ -1,6 +1,5 @@
 package com.afarid.employeeservice.controller;
 
-import com.afarid.employeeservice.dto.EmployeeDepartmentDto;
 import com.afarid.employeeservice.dto.EmployeeDto;
 import com.afarid.employeeservice.service.EmployeeService;
 import lombok.RequiredArgsConstructor;

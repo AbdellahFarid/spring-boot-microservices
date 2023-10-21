@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/departments")
@@ -22,5 +24,10 @@ public class DepartmentController {
     @PostMapping
     public ResponseEntity<DepartmentDto> createDepartment(@RequestBody DepartmentDto departmentDto){
         return new ResponseEntity<>(departmentService.createDepartment(departmentDto), HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DepartmentDto>> getAllDepartments(){
+        return new ResponseEntity<>(departmentService.getAllDepartments(), HttpStatus.OK);
     }
 }

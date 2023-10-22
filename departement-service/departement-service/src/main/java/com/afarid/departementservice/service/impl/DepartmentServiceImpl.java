@@ -26,6 +26,8 @@ public class DepartmentServiceImpl implements DepartmentService {
                 () -> new ResourceNotFoundException(String.format("Department with code : %s not found!", code))
         );
 
+//        departmentClient.getAllEmployeesByDepartmentCode(department.getDepartmentCode());
+
         //Using ModelMapper
         return departmentModelMapper.mapToDepartmentDto(department);
     }

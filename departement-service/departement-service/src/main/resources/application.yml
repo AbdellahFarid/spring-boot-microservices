@@ -3,24 +3,25 @@ server:
 spring:
   application:
     name: department-service
+  config:
+    import: optional:configserver:http://localhost:8888
 
-  datasource:
-    url: jdbc:mysql://localhost:3306/department-db
-    username: root
-    password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
-  instance:
-    instance-id: ${spring.application.name}:${random.uuid}
-
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/department-db
+#    username: root
+#    password: root
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#
+#eureka:
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/
+#  instance:
+#    instance-id: ${spring.application.name}:${random.uuid}

@@ -25,4 +25,4 @@ eureka:
 server:
   port: 8081
 test:
-  message: Hello Employee Service
+  message: Today is good day

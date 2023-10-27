@@ -21,3 +21,6 @@ eureka:
 
 server:
   port: 8080
+
+test:
+  message: Hello today is Friday

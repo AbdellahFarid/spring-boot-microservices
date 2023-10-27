@@ -24,3 +24,5 @@ eureka:
     
 server:
   port: 8081
+test:
+  message: Hello Employee Service

@@ -3,6 +3,12 @@ spring:
     name: employee-service
   config:
     import: optional:configserver:http://localhost:8888
+  #rabbitmq configuration
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 #
 #  datasource:
 #    url: jdbc:mysql://localhost:3307/employee-db

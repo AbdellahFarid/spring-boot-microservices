@@ -9,6 +9,17 @@ spring:
     port: 5672
     username: guest
     password: guest
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  tracing:
+    sampling:
+      probability: 1
+logging:
+  pattern:
+    level: '%5p [${spring.application.name}, %X{traceId: -}, %X{spanId: -}]'
 #
 #  datasource:
 #    url: jdbc:mysql://localhost:3307/employee-db

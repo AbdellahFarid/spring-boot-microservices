@@ -5,11 +5,8 @@ import com.afarid.employeeservice.entity.Employee;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface EmployeeMapper {
-
-    EmployeeMapper EMPLOYEE_MAPPER = Mappers.getMapper(EmployeeMapper.class);
-
     EmployeeDto toEmployeeDto(Employee employee);
 
     Employee toEmployee(EmployeeDto employeeDto);

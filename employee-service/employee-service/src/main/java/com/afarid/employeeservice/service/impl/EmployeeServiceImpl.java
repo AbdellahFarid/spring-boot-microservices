@@ -5,7 +5,7 @@ import com.afarid.employeeservice.dto.EmployeeDto;
 import com.afarid.employeeservice.entity.Employee;
 import com.afarid.employeeservice.exception.ResourceNotFoundException;
 import com.afarid.employeeservice.feign.EmployeeClient;
-import com.afarid.employeeservice.mapper.EmployeeModelMapper;
+import com.afarid.employeeservice.mapper.EmployeeMapper;
 import com.afarid.employeeservice.repository.EmployeeRepository;
 import com.afarid.employeeservice.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
@@ -18,17 +18,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
-    private final EmployeeModelMapper employeeModelMapper;
+    private final EmployeeMapper employeeMapper;
     private final EmployeeClient employeeClient;
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
 
         //Using ModelMapper
-        Employee employee = employeeModelMapper.mapToEmployee(employeeDto);
+        Employee employee = employeeMapper.toEmployee(employeeDto);
         //Save the employee in the database
         Employee savedEmployee = employeeRepository.save(employee);
 
-        return employeeModelMapper.mapToEmployeeDto(savedEmployee);
+        return employeeMapper.toEmployeeDto(savedEmployee);
     }
 
     @Override

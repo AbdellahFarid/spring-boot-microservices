@@ -5,10 +5,8 @@ import com.afarid.departementservice.entity.Department;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface DepartmentMapper {
-
-    DepartmentMapper DEPARTMENT_MAPPER = Mappers.getMapper(DepartmentMapper.class);
 
     DepartmentDto toDepartmentDto(Department department);
 

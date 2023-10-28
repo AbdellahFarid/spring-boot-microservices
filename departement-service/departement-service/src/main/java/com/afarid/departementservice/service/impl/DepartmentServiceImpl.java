@@ -5,7 +5,7 @@ import com.afarid.departementservice.dto.EmployeeDto;
 import com.afarid.departementservice.entity.Department;
 import com.afarid.departementservice.exception.ResourceNotFoundException;
 import com.afarid.departementservice.feign.DepartmentClient;
-import com.afarid.departementservice.mapper.DepartmentModelMapper;
+import com.afarid.departementservice.mapper.DepartmentMapper;
 import com.afarid.departementservice.repository.DepartmentRepository;
 import com.afarid.departementservice.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.List;
 public class DepartmentServiceImpl implements DepartmentService {
 
     private final DepartmentRepository departmentRepository;
-    private final DepartmentModelMapper departmentModelMapper;
+    private final DepartmentMapper departmentMapper;
     private final DepartmentClient departmentClient;
     @Override
     public DepartmentDto getDepartmentByCode(String code) {
@@ -29,38 +29,41 @@ public class DepartmentServiceImpl implements DepartmentService {
 //        departmentClient.getAllEmployeesByDepartmentCode(department.getDepartmentCode());
 
         //Using ModelMapper
-        return departmentModelMapper.mapToDepartmentDto(department);
+        return departmentMapper.toDepartmentDto(department);
     }
 
     @Override
     public DepartmentDto createDepartment(DepartmentDto departmentDto) {
 
         //Using ModelMapper
-        Department department = departmentModelMapper.mapToDepartment(departmentDto);
+        Department department = departmentMapper.toDepartment(departmentDto);
 
         Department savedDepartment = departmentRepository.save(department);
 
         //Using ModelMapper
-        return departmentModelMapper.mapToDepartmentDto(savedDepartment);
+        return departmentMapper.toDepartmentDto(savedDepartment);
     }
 
     @Override
     public List<DepartmentDto> getAllDepartments() {
         List<Department> departments = departmentRepository.findAll();
-        List<DepartmentDto> departmentsDto = departments
-                .stream()
+        return departments.stream()
                 .map(department -> {
                     List<EmployeeDto> employeesDto = departmentClient.getAllEmployeesByDepartmentCode(department.getDepartmentCode());
-                    employeesDto.forEach(employeeDto -> employeeDto.setDepartmentCode(department.getDepartmentCode()));
-                    DepartmentDto departmentDto = new DepartmentDto(
+                    setDepartmentCodeForEmployees(employeesDto, department.getDepartmentCode());
+                    return new DepartmentDto(
                             department.getId(),
                             department.getDepartmentName(),
                             department.getDepartmentDescription(),
                             department.getDepartmentCode(),
                             employeesDto
                     );
-                    return departmentDto;
-                }).toList();
-        return departmentsDto;
+                })
+                .toList();
     }
+
+    private void setDepartmentCodeForEmployees(List<EmployeeDto> employeesDto, String departmentCode) {
+        employeesDto.forEach(employeeDto -> employeeDto.setDepartmentCode(departmentCode));
+    }
+
 }

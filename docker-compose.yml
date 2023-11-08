@@ -1,0 +1,57 @@
+version: '3.8'
+services:
+
+  ms-reg:
+    container_name: registry-cont
+    build:
+      context: ./registry-service
+      dockerfile: Dockerfile
+    image: registry-service
+    ports:
+      - '8761:8761'
+    networks:
+      - sb-ms-net
+
+  ms-conf:
+    container_name: config-cont
+    build:
+      context: ./config-server
+      dockerfile: Dockerfile
+    image: config-server
+    ports:
+      - '8888:8888'
+    networks:
+      - sb-ms-net
+  ms-dep:
+    container_name: department-cont
+    build:
+      context: ./departement-service
+      dockerfile: Dockerfile
+    image: department-service
+    ports:
+      - '8080:8080'
+    networks:
+      - sb-ms-net
+  ms-emp:
+    container_name: employee-cont
+    build:
+      context: ./employee-service
+      dockerfile: Dockerfile
+    image: employee-service
+    ports:
+      - '8081:8081'
+    networks:
+      - sb-ms-net
+  ms-gate:
+    container_name: gateway-cont
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    image: api-gateway
+    ports:
+      - '9191:9191'
+    networks:
+      - sb-ms-net
+networks:
+  sb-ms-net:
+    driver: bridge

@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   d_db:
-    container_name: "department_db"
+    container_name: "department-db-cont"
     image: mysql:8.0
     environment:
       MYSQL_DATABASE: "department-db"
@@ -11,6 +11,7 @@ services:
     ports:
       - '3306:3306'
     networks:
-      - my_network
+      - ms-db
 networks:
-  my_network:
+  ms-db:
+    driver: bridge

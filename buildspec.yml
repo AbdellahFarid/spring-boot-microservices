@@ -1,0 +1,12 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      java: corretto17
+
+  pre_build:
+    commands:
+      - echo Logging into Amazon ECR...
+      - aws ecr get-login-password --region {{AWS region}} | docker login --username AWS --password-stdin {{AWS Account Id}}.dkr.ecr.{{AWS region}}.amazonaws.com
+      - echo Log in to ECR successfully
+      - aws ecr batch-delete-image --repository-name {{repo name}}--image-ids imageTag={{image tag}}

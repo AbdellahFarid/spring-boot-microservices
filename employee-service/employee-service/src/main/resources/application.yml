@@ -2,7 +2,7 @@ spring:
   application:
     name: employee-service
   config:
-    import: optional:configserver:http://localhost:8888
+    import: optional:configserver:http://config-cont:8888
   #rabbitmq configuration
   rabbitmq:
     host: localhost

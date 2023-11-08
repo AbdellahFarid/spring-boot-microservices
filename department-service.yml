@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://d_db:3306/department-db
+    url: jdbc:mysql://department-db-cont:3306/department-db
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver

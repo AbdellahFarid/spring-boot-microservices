@@ -7,6 +7,13 @@ phases:
   pre_build:
     commands:
       - echo Logging into Amazon ECR...
-      - aws ecr get-login-password --region {{AWS region}} | docker login --username AWS --password-stdin {{AWS Account Id}}.dkr.ecr.{{AWS region}}.amazonaws.com
+      - aws ecr get-login-password --region {{AWS region}} | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
       - echo Log in to ECR successfully
-      - aws ecr batch-delete-image --repository-name {{repo name}}--image-ids imageTag={{image tag}}
+      - aws ecr batch-delete-image --repository-name afarid-registry--image-ids imageTag=$IMAGE_TAG
+  build:
+    commands:
+      - docker-compose --file=docker-compose.yml build
+      - docker tag {{imageName1}}:latest {{AWS Account Id}}.dkr.ecr.{{AWS region}}.amazonaws.com/{{imageName1}}:latest
+      - docker push {{AWS Account Id}}.dkr.ecr.{{AWS region}}.amazonaws.com/{{imageName1}}:latest
+      - docker tag {{imageName2}}:latest {{AWS Account Id}}.dkr.ecr.{{AWS region}}.amazonaws.com/{{imageName2}}:latest
+      - docker push {{AWS Account Id}}.dkr.ecr.{{AWS region}}.amazonaws.com/{{imageName2}}:latest

@@ -6,9 +6,12 @@ phases:
 
   pre_build:
     commands:
+      - echo Logging into Amazon ECR started on `date`
+      - aws --version
       - echo Logging into Amazon ECR...
-      - aws ecr get-login-password --region {{AWS region}} | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
-      - echo Log in to ECR successfully
+      - aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 638038348168.dkr.ecr.eu-north-1.amazonaws.com
+      - echo Setting repository URI...
+      - REPOSITORY_URI=638038348168.dkr.ecr.eu-north-1.amazonaws.com/afarid-registry
       - aws ecr batch-delete-image --repository-name afarid-registry--image-ids imageTag=$IMAGE_TAG
   build:
     commands:

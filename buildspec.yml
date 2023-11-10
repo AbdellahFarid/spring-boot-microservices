@@ -6,6 +6,7 @@ phases:
 
   pre_build:
     commands:
+      - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
       - echo Logging into Amazon ECR started on `date`
       - aws --version
       - echo Logging into Amazon ECR...
@@ -17,8 +18,8 @@ phases:
       - aws ecr batch-delete-image --repository-name afarid-registry --image-ids imageTag=$IMAGE_TAG
   build:
     commands:
+      - echo Build started at `date`
+      - echo Building the docker image from docker-compose
       - docker-compose --file=docker-compose.yml build
-      - docker tag {{imageName1}}:latest {{AWS Account Id}}.dkr.ecr.{{AWS region}}.amazonaws.com/{{imageName1}}:latest
-      - docker push {{AWS Account Id}}.dkr.ecr.{{AWS region}}.amazonaws.com/{{imageName1}}:latest
-      - docker tag {{imageName2}}:latest {{AWS Account Id}}.dkr.ecr.{{AWS region}}.amazonaws.com/{{imageName2}}:latest
-      - docker push {{AWS Account Id}}.dkr.ecr.{{AWS region}}.amazonaws.com/{{imageName2}}:latest
+      - docker tag image-1:latest 638038348168.dkr.ecr.$AWS_REGION.amazonaws.com/image-1:latest
+      - docker push 638038348168.dkr.ecr.$AWS_REGION.amazonaws.com/image-1:latest

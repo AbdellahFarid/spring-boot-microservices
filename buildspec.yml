@@ -21,5 +21,5 @@ phases:
       - echo Build started at `date`
       - echo Building the docker image from docker-compose
       - docker-compose --file=docker-compose.yml build
-      - docker tag image-1:latest 638038348168.dkr.ecr.$AWS_REGION.amazonaws.com/image-1:latest
-      - docker push 638038348168.dkr.ecr.$AWS_REGION.amazonaws.com/image-1:latest
+      - docker tag image-1:latest 638038348168.dkr.ecr.$AWS_REGION.amazonaws.com/image-1:$IMAGE_TAG
+      - docker push 638038348168.dkr.ecr.$AWS_REGION.amazonaws.com/image-1:$IMAGE_TAG

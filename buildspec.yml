@@ -12,8 +12,8 @@ phases:
       - aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 638038348168.dkr.ecr.eu-north-1.amazonaws.com
       - echo Setting repository URI...
       - REPOSITORY_URI=638038348168.dkr.ecr.eu-north-1.amazonaws.com/afarid-registry
-      - echo "AWS_REGION: $AWS_REGION"
-        echo "IMAGE_TAG: $IMAGE_TAG"
+      - echo $AWS_REGION
+      - echo $IMAGE_TAG
       - aws ecr batch-delete-image --repository-name afarid-registry --image-ids imageTag=$IMAGE_TAG
   build:
     commands:

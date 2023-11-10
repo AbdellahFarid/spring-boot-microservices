@@ -4,7 +4,7 @@ services:
   ms-reg:
     container_name: registry-cont
     build:
-      context: ./registry-service
+      context: ./registry-service/registry-service
       dockerfile: ./Dockerfile
     image: registry-service
     ports:
@@ -15,7 +15,7 @@ services:
   ms-conf:
     container_name: config-cont
     build:
-      context: ./config-server
+      context: ./config-server/config-server
       dockerfile: ./Dockerfile
     image: config-server
     ports:
@@ -25,7 +25,7 @@ services:
   ms-dep:
     container_name: department-cont
     build:
-      context: ./departement-service
+      context: ./departement-service/departement-service
       dockerfile: ./Dockerfile
     image: department-service
     ports:
@@ -35,7 +35,7 @@ services:
   ms-emp:
     container_name: employee-cont
     build:
-      context: ./employee-service
+      context: ./employee-service/employee-service
       dockerfile: ./Dockerfile
     image: employee-service
     ports:
@@ -45,7 +45,7 @@ services:
   ms-gate:
     container_name: gateway-cont
     build:
-      context: ./api-gateway
+      context: ./api-gateway/api-gateway
       dockerfile: ./Dockerfile
     image: api-gateway
     ports:

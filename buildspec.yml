@@ -22,4 +22,12 @@ phases:
       - echo Building the docker image from docker-compose
       - docker-compose --file=docker-compose.yml build
       - docker tag registry-service:latest 638038348168.dkr.ecr.$AWS_REGION.amazonaws.com/registry-service:$IMAGE_TAG
-      - docker push $REPOSITORY_URI
+      - docker push 638038348168.dkr.ecr.eu-north-1.amazonaws.com/registry-service:$IMAGE_TAG
+      - docker tag config-server:latest 638038348168.dkr.ecr.$AWS_REGION.amazonaws.com/config-server:$IMAGE_TAG
+      - docker push 638038348168.dkr.ecr.eu-north-1.amazonaws.com/config-server:$IMAGE_TAG
+      - docker tag department-service:latest 638038348168.dkr.ecr.$AWS_REGION.amazonaws.com/department-service:$IMAGE_TAG
+      - docker push 638038348168.dkr.ecr.eu-north-1.amazonaws.com/department-service:$IMAGE_TAG
+      - docker tag employee-service:latest 638038348168.dkr.ecr.$AWS_REGION.amazonaws.com/employee-service:$IMAGE_TAG
+      - docker push 638038348168.dkr.ecr.eu-north-1.amazonaws.com/employee-service:$IMAGE_TAG
+      - docker tag api-gateway:latest 638038348168.dkr.ecr.$AWS_REGION.amazonaws.com/api-gateway:$IMAGE_TAG
+      - docker push 638038348168.dkr.ecr.eu-north-1.amazonaws.com/api-gateway:$IMAGE_TAG

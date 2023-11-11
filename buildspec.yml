@@ -22,4 +22,4 @@ phases:
       - echo Building the docker image from docker-compose
       - docker-compose --file=docker-compose.yml build
       - docker tag registry-service:latest 638038348168.dkr.ecr.$AWS_REGION.amazonaws.com/registry-service:$IMAGE_TAG
-      - docker push 638038348168.dkr.ecr.eu-north-1.amazonaws.com/registry-service:$IMAGE_TAG
+      - docker push $REPOSITORY_URI

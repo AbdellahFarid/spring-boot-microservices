@@ -22,5 +22,5 @@ phases:
       - echo Building the docker image from docker-compose
       - docker-compose --file=docker-compose.yml build
       - docker images
-      - docker tag afarid-registry:latest 638038348168.dkr.ecr.eu-north-1.amazonaws.com/prod
+      - docker tag registry-service 638038348168.dkr.ecr.eu-north-1.amazonaws.com/r_prod
       - docker push REPOSITORY_URI:$IMAGE_TAG

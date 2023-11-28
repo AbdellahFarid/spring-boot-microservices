@@ -23,4 +23,4 @@ phases:
       - docker-compose --file=docker-compose.yml build
       - docker images
       - docker tag registry-service 638038348168.dkr.ecr.eu-north-1.amazonaws.com/r_prod
-      - docker push REPOSITORY_URI:$IMAGE_TAG
+      - docker push 638038348168.dkr.ecr.eu-north-1.amazonaws.com/r_prod:latest

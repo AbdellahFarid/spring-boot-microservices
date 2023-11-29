@@ -12,4 +12,5 @@ public class RegistryServiceApplication {
 		SpringApplication.run(RegistryServiceApplication.class, args);
 	}
 
+
 }

@@ -3,7 +3,7 @@ package com.afarid.employeeservice.controller;
 import com.afarid.employeeservice.dto.EmployeeDto;
 import com.afarid.employeeservice.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +14,7 @@ import java.util.List;
 @RequestMapping("/api/v1/employees")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
+@RefreshScope
 public class EmployeeController {
 
     private final EmployeeService employeeService;
